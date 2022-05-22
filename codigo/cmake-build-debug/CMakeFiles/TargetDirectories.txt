@@ -1,0 +1,3 @@
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/cmake-build-debug/CMakeFiles/Projeto2.dir
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
