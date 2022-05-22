@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="Projeto2" targetName="Projeto2" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="006b3851-4547-4656-b183-d6f940f584d1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/codigo/maxHeap.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/codigo/minHeap.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/cmake-build-debug/CMakeFiles/Projeto2.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/cmake-build-debug/CMakeFiles/Projeto2.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/cmake-build-debug/Projeto2.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/cmake-build-debug/Projeto2.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/graph.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/graph.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/graph.h" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/graph.h" afterDir="false" />
+    </list>
+    <list id="a1e8e456-be56-4042-9d6e-cf259b439ff9" name="Changes by tomca" comment="" />
+    <list id="cf7fcfcf-fca6-4141-9bbf-2d7ff13059d3" name="Changes by Utilizador" comment="">
+      <change beforePath="$PROJECT_DIR$/codigo/FileHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/FileHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/FileHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/FileHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/graph.h" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/graph.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codigo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/codigo/main.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/codigo/graph.h">
+      <ranges>
+        <range start1="15" end1="15" start2="15" end2="16" changelist="cf7fcfcf-fca6-4141-9bbf-2d7ff13059d3" />
+        <range start1="16" end1="17" start2="17" end2="19" changelist="cf7fcfcf-fca6-4141-9bbf-2d7ff13059d3" />
+        <range start1="21" end1="22" start2="23" end2="24" changelist="006b3851-4547-4656-b183-d6f940f584d1" />
+        <range start1="30" end1="31" start2="32" end2="33" changelist="006b3851-4547-4656-b183-d6f940f584d1" />
+        <range start1="32" end1="34" start2="34" end2="36" changelist="006b3851-4547-4656-b183-d6f940f584d1" />
+        <range start1="63" end1="63" start2="65" end2="76" changelist="006b3851-4547-4656-b183-d6f940f584d1" />
+      </ranges>
+    </file>
+  </component>
+  <component name="ProjectId" id="29WSm8qo7Iry8O6biiXyzOy87lK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/codigo" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\clfma\Desktop\Faculdade\Y2S2\DA\Projeto2\codigo" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Projeto2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Projeto2" TARGET_NAME="Projeto2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Projeto2" RUN_TARGET_NAME="Projeto2">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="006b3851-4547-4656-b183-d6f940f584d1" name="Changes" comment="" />
+      <created>1653227504399</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653227504399</updated>
+      <workItem from="1653227506619" duration="5818000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

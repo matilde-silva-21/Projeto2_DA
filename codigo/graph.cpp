@@ -2,16 +2,102 @@
 // Pedro Ribeiro (DCC/FCUP) [03/01/2022]
 
 #include "graph.h"
+#include "minHeap.h"
+#include "maxHeap.h"
+#include <algorithm>
+
 
 // Constructor: nr nodes and direction (default: undirected)
 Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num + 1) {
 }
 
-// Add edge from source to destination with a certain weight
-void Graph::addEdge(int src, int dest, int weight) {
+// Add edge from source to destination with a certain capacity and duration
+void Graph::addEdge(int src, int dest, int capacity, int duration) {
     if (src < 1 || src > n || dest < 1 || dest > n) return;
-    nodes[src].adj.push_back({dest, weight});
-    if (!hasDir) nodes[dest].adj.push_back({src, weight});
+    nodes[src].adj.push_back({src, dest, capacity, duration});
+    if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration});
+}
+
+/*vector<int> Graph::dijkstra(int start, int finish) {
+
+    float distance[n+1];
+    MinHeap<int, float> heap(n,0);
+    int predecessor[n+1];
+    vector<int> course;
+
+    for(int i=1;i<=nodes.size(); i++){
+        distance[i] = UINT32_MAX;
+        nodes[i].visited = false;
+    }
+
+    heap.insert(start, 0.0);
+
+    while(heap.getSize()!=0){
+        pair<int,float> p = heap.removeMin();
+        int min = p.first;
+        nodes[min].visited = true;
+        if(min == finish) {
+            int one = finish, two;
+
+            course.push_back(finish);
+
+            while(one!=start){
+                two = predecessor[one];
+                course.emplace(course.begin(),two);
+                one = two;
+            }
+            return course;
+        }
+        for(auto& e: nodes[min].adj){
+            if(nodes[e.dest].visited) break;
+
+            else{
+                int destine = e.dest;
+                float weight = e.capacity + p.second;
+                predecessor[destine]=min;
+                if(!heap.hasKey(destine)) heap.insert(destine,weight);
+                else heap.decreaseKey(destine,weight);
+            }
+        }
+
+    }
+    return course;
+}*/
+
+int Graph::dijkstra(int start, int finish){
+    int pai[n], cap[n];
+    MaxHeap<int, int> q(n, -1);
+    cap[start] = UINT32_MAX;
+
+    int last=finish, cur=0, min=cap[start], count=0;
+
+    for(int i=0; i<n; i++){
+        pai[i] = -1;
+        if(i!=start) cap[i] = 0;
+        q.insert(i, cap[i]);
+    }
+
+    while(q.getSize()!=0){
+        std::cout << "iteration "<<count++<<endl;
+        pair<int, int> v = q.removeMax();
+        for(Edge edge: nodes[v.first].adj){
+            if(std::min(v.second, edge.capacity) > cap[edge.dest]){
+                cap[edge.dest] = std::min(v.second, edge.capacity);
+                pai[edge.dest] = v.first;
+                q.increaseKey(edge.dest, cap[edge.dest]);
+            }
+        }
+    }
+
+    std::cout << "left loop" <<endl;
+
+    while(last != start){
+        cur = pai[last];
+        if(cap[cur] < min) {min = cap[cur];}
+        last = cur;
+    }
+
+    return min;
 }
 
 // Depth-First Search: example implementation

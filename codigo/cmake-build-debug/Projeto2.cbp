@@ -97,6 +97,12 @@
 		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/main.cpp">
 			<Option target="Projeto2"/>
 		</Unit>
+		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/maxHeap.h">
+			<Option target="Projeto2"/>
+		</Unit>
+		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/minHeap.h">
+			<Option target="Projeto2"/>
+		</Unit>
 		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
