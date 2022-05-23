@@ -64,7 +64,9 @@ public:
 
     int bfs2();
 
-    int dijkstra(int start, int finish);
+    pair<vector<int>,int> dijkstra_maximize_capacity(int start, int finish);
+
+    pair<vector<int>,int> dijkstra_minimize_edges(int start, int finish);
 
     list<int> getAdjNodes(int n) {
         list<int> final;
@@ -73,6 +75,10 @@ public:
         }
         return final;
     }
+
+    /** @BRIEF Se existir uma edge entre os nodes a e b, a função retorna a capacidade dessa edge, caso contrário retorna -1.**/
+    int getEdgeCapacity(int a, int b);
+
 
 };
 

@@ -3,4 +3,4 @@ project(Projeto2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Projeto2 main.cpp FileHandler.cpp graph.cpp maxHeap.h minHeap.h)
+add_executable(Projeto2 main.cpp FileHandler.cpp graph.cpp maxHeap.h minHeap.h Cenario1.cpp Cenario1.h)

@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.cpp">
+			<Option target="Projeto2"/>
+		</Unit>
+		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h">
+			<Option target="Projeto2"/>
+		</Unit>
 		<Unit filename="C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/FileHandler.cpp">
 			<Option target="Projeto2"/>
 		</Unit>

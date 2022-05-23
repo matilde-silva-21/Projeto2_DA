@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Projeto2.dir/Cenario1.cpp.obj"
   "CMakeFiles/Projeto2.dir/FileHandler.cpp.obj"
   "CMakeFiles/Projeto2.dir/graph.cpp.obj"
   "CMakeFiles/Projeto2.dir/main.cpp.obj"

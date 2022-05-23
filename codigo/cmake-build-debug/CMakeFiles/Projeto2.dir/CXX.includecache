@@ -6,13 +6,17 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.cpp
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.cpp
+Cenario1.h
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
+
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
+iostream
+-
 graph.h
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
-minHeap.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/minHeap.h
-maxHeap.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/maxHeap.h
+vector
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/vector
 algorithm
 -
 
@@ -24,17 +28,5 @@ list
 queue
 -
 iostream
--
-
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/maxHeap.h
-vector
--
-unordered_map
--
-
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/minHeap.h
-vector
--
-unordered_map
 -
 

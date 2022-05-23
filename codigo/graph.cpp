@@ -18,7 +18,7 @@ void Graph::addEdge(int src, int dest, int capacity, int duration) {
     if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration});
 }
 
-/*vector<int> Graph::dijkstra(int start, int finish) {
+pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
 
     float distance[n+1];
     MinHeap<int, float> heap(n,0);
@@ -34,7 +34,7 @@ void Graph::addEdge(int src, int dest, int capacity, int duration) {
 
     while(heap.getSize()!=0){
         pair<int,float> p = heap.removeMin();
-        int min = p.first;
+        int min = p.first, finn = UINT16_MAX;
         nodes[min].visited = true;
         if(min == finish) {
             int one = finish, two;
@@ -44,9 +44,11 @@ void Graph::addEdge(int src, int dest, int capacity, int duration) {
             while(one!=start){
                 two = predecessor[one];
                 course.emplace(course.begin(),two);
+                int cap = getEdgeCapacity(one,two);
                 one = two;
+                if(cap != -1 && cap < finn) finn = cap;
             }
-            return course;
+            return make_pair(course, finn);
         }
         for(auto& e: nodes[min].adj){
             if(nodes[e.dest].visited) break;
@@ -61,15 +63,18 @@ void Graph::addEdge(int src, int dest, int capacity, int duration) {
         }
 
     }
-    return course;
-}*/
+    return make_pair(course, -1);
+}
 
-int Graph::dijkstra(int start, int finish){
+pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
     int pai[n], cap[n];
     MaxHeap<int, int> q(n, -1);
-    cap[start] = UINT32_MAX;
 
+    vector<int> path;
+
+    cap[start] = UINT16_MAX;
     int last=finish, cur=0, min=cap[start], count=0;
+
 
     for(int i=0; i<n; i++){
         pai[i] = -1;
@@ -78,7 +83,6 @@ int Graph::dijkstra(int start, int finish){
     }
 
     while(q.getSize()!=0){
-        std::cout << "iteration "<<count++<<endl;
         pair<int, int> v = q.removeMax();
         for(Edge edge: nodes[v.first].adj){
             if(std::min(v.second, edge.capacity) > cap[edge.dest]){
@@ -89,15 +93,17 @@ int Graph::dijkstra(int start, int finish){
         }
     }
 
-    std::cout << "left loop" <<endl;
 
     while(last != start){
+        path.insert(path.begin(), last);
         cur = pai[last];
         if(cap[cur] < min) {min = cap[cur];}
         last = cur;
     }
 
-    return min;
+    path.insert(path.begin(), start);
+
+    return make_pair(path, min);
 }
 
 // Depth-First Search: example implementation
@@ -320,4 +326,11 @@ int Graph::bfs2() {
     }
 
     return max;
+}
+
+int Graph::getEdgeCapacity(int a, int b) {
+    for(auto i: nodes[a].adj){
+        if(i.dest==b) return i.capacity;
+    }
+    return -1;
 }
