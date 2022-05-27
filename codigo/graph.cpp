@@ -44,7 +44,7 @@ pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
             while(one!=start){
                 two = predecessor[one];
                 course.emplace(course.begin(),two);
-                int cap = getEdgeCapacity(one,two);
+                int cap = getEdgeCapacity(two,one);
                 one = two;
                 if(cap != -1 && cap < finn) finn = cap;
             }
