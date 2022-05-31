@@ -42,7 +42,7 @@ pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
                 two = predecessor[one];
                 course.emplace(course.begin(),two);
                 int cap=UINT16_MAX;
-                if(getEdge(two, one)->src != -1){
+                if(edgeExists(two,one)){
                     cap = getEdge(two, one)->capacity;
                 }
                 one = two;

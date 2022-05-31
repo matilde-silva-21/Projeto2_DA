@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.cpp
+Cenario1.h
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
+
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
 iostream
 -
@@ -16,6 +20,18 @@ C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/vector
 algorithm
 -
 
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/FileHandler.cpp
+FileHandler.h
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/FileHandler.h
+fstream
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/fstream
+sstream
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/sstream
+string
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/string
+iostream
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/iostream
+
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/FileHandler.h
 string
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/string
@@ -25,6 +41,10 @@ graph.h
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
 map
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/map
+
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.cpp
+graph.h
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
 
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
 vector
