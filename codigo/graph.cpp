@@ -2,9 +2,6 @@
 // Pedro Ribeiro (DCC/FCUP) [03/01/2022]
 
 #include "graph.h"
-#include "minHeap.h"
-#include "maxHeap.h"
-#include <algorithm>
 
 
 // Constructor: nr nodes and direction (default: undirected)
@@ -44,7 +41,10 @@ pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
             while(one!=start){
                 two = predecessor[one];
                 course.emplace(course.begin(),two);
-                int cap = getEdgeCapacity(one,two);
+                int cap=UINT16_MAX;
+                if(getEdge(two, one)->src != -1){
+                    cap = getEdge(two, one)->capacity;
+                }
                 one = two;
                 if(cap != -1 && cap < finn) finn = cap;
             }
@@ -167,21 +167,7 @@ void Graph::bfs(int v) {
 // Exercicio 1: Introdução a uma classe simplificada de grafos
 // ----------------------------------------------------------
 
-// ..............................
-// a) Contando diferentes somas de pares
-// TODO
-int Graph::outDegree(int v) {
-    if (v >= 1 && v <= n) return nodes[v].adj.size();
-    else return -1;
-}
 
-// ----------------------------------------------------------
-// Exercicio 2: Componentes conexos
-// ----------------------------------------------------------
-
-// ..............................
-// a) Contando componentes conexos
-// TODO
 int Graph::connectedComponents() {
     int counter = 0;
     for (int v = 1; v <= n; v++) { nodes[v].visited = false; }
@@ -196,69 +182,15 @@ int Graph::connectedComponents() {
 }
 
 
-// ..............................
-// b) Componente gigante
-// TODO
-int Graph::giantComponent() {
-    int counter = 0, cur = 1, max = 0;
-    for (int v = 1; v <= n; v++) { nodes[v].visited = false; }
-    for (int v = 1; v <= n; v++) {
-        if (!nodes[v].visited)dfs1(v, cur);
-        if (cur > max) max = cur;
-        cur = 1;
-    }
-    return max;
-}
+//esta funcao ve a menor distancia do nó V ao nó B
+std::pair<int, vector<Graph::Edge>> Graph::bfs1(int v, int b) {
 
+    vector<Edge> final;
 
-// ----------------------------------------------------------
-// Exercicio 3: Ordenacao topologica
-// ----------------------------------------------------------
-// TODO
-list<int> Graph::topologicalSorting() {
-    list<int> order;
-    for (int v = 1; v <= n; v++) { nodes[v].visited = false; }
-    for (int v = 1; v <= n; v++) {
-        if (!nodes[v].visited) {
-            dfs2(v, order);
-        }
-    }
+    if(v == b){return make_pair(0, final);}
 
-    return order;
-}
-
-// ----------------------------------------------------------
-// Exercicio 4: Distancias em grafos nao pesados
-// ----------------------------------------------------------
-
-
-// ..............................
-// a) Distancia entre dois nos
-// TODO
-int Graph::distance(int a, int b) {
-    return bfs1(a, b);
-}
-
-// ..............................
-// b) Diametro
-// TODO
-int Graph::diameter() {
-    return bfs2();
-}
-
-// ----------------------------------------------------------
-// Exercicio 5: To or not be… a DAG!
-// ----------------------------------------------------------
-// TODO
-bool Graph::hasCycle() {
-    return false;
-}
-
-//esta funcao ve a menor distancia do nó V ao nó B (para grafos sem peso)
-int Graph::bfs1(int v, int b) {
-    if (v == b) return 0;
     //distance representa a distancia de qualquer node ao node 1
-    int predecessor[nodes.size() + 1], distance[nodes.size() + 1];
+    int predecessor[nodes.size() + 1], distance[nodes.size() + 1], min = INT16_MAX;
     for (int i = 1; i <= n; i++) {
         distance[i] = INT16_MAX;
         predecessor[i] = -1;
@@ -269,10 +201,10 @@ int Graph::bfs1(int v, int b) {
     distance[v] = 0;
     nodes[v].visited = true;
     while (!q.empty()) { // while there are still unvisited nodes
-        int u = q.front();
+        int u = q.front(), cf=0;
         q.pop();
-        cout << u << " "; // show node order
         for (auto e: nodes[u].adj) {
+            if(e.capacity == 0) continue;
             int w = e.dest;
             if (!nodes[w].visited) {
                 distance[w] = distance[u] + 1;
@@ -280,14 +212,24 @@ int Graph::bfs1(int v, int b) {
                 q.push(w);
                 nodes[w].visited = true;
 
-                if (w == b) return distance[b];
+                if (w == b) {
+                    while(w!=v){
+                        cf = getEdge(predecessor[w], w)->capacity - getEdge(predecessor[w], w)->flow;
+                        if(min>cf){min = cf;}
+                        final.emplace(final.begin(),*getEdge(predecessor[w], w));
+                        w = predecessor[w];
+                    }
+                    return make_pair(min, final);
+                }
             }
 
 
         }
     }
 
-    return -1;
+
+    final.clear();
+    return make_pair(-1, final);
 }
 
 int Graph::bfs2() {
@@ -328,9 +270,84 @@ int Graph::bfs2() {
     return max;
 }
 
-int Graph::getEdgeCapacity(int a, int b) {
-    for(auto i: nodes[a].adj){
-        if(i.dest==b) return i.capacity;
+Graph::Edge* Graph::getEdge(int a, int b) {
+    for(auto& i: nodes[a].adj){
+        if(i.dest==b) return &i;
     }
-    return -1;
+
+    return new Graph::Edge{
+        -1,-1,-1, -1,-1
+    };
+
+}
+
+int Graph::edmonds_karp(int start, int finish) {
+
+    int finalflow = 0;
+    Graph residual_network = *this;
+    for(Node& node: nodes){
+        for(Edge& e: node.adj){
+            e.flow = 0;
+        }
+    }
+
+    std::pair<int, vector<Graph::Edge>> bfs_result = residual_network.bfs1(start, finish);
+    vector<Edge> path = bfs_result.second;
+    int cp = bfs_result.first;
+
+    while(cp != -1){
+        for(Edge &e: path){
+            if(edgeExists(e.src,e.dest)){
+                getEdge(e.src, e.dest)->flow += cp;
+            }
+
+            else getEdge(e.dest, e.src)->flow -= cp;
+        }
+
+        for(auto& node: nodes){
+            for(auto& e: node.adj){
+                int cf = e.capacity - e.flow;
+                if(cf >= 0){
+                    if(edgeExists(e.src,e.dest)){residual_network.getEdge(e.src, e.dest)->capacity = cf;}
+                    else residual_network.addEdge(e.src,e.dest,cf,-1);
+                }
+                else{
+                    residual_network.addEdge(e.dest,e.src,e.flow,-1);
+                }
+            }
+        }
+
+
+        bfs_result = residual_network.bfs1(start, finish);
+        cp = bfs_result.first;
+        path = bfs_result.second;
+    }
+
+
+    for(auto& e: nodes[start].adj){
+        finalflow += e.flow;
+    }
+
+    for(auto& node: nodes){
+        for(auto& e: node.adj){
+            if(e.dest == start){
+                finalflow -= e.flow;
+            }
+        }
+    }
+
+    return finalflow;
+
+}
+
+bool Graph::edgeExists(int a, int b) {
+    return getEdge(a,b)->src != -1;
+}
+
+bool Graph::Edge::operator==(Graph::Edge &e1) const {
+    return (e1.dest == dest &&
+    e1.flow == flow &&
+    e1.src == src &&
+    e1.capacity == capacity &&
+    e1.duration == duration);
 }

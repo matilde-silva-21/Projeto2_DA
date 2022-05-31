@@ -8,6 +8,10 @@
 #include <list>
 #include <queue>
 #include <iostream>
+#include "minHeap.h"
+#include "maxHeap.h"
+#include <algorithm>
+#include "iterator"
 
 using namespace std;
 
@@ -17,6 +21,9 @@ class Graph {
         int dest;   // Destination node
         int capacity; // An integer capacity
         int duration; // An integer duration
+        int flow;
+
+        bool operator ==(Edge& e1) const;
     };
 
     struct Node {
@@ -35,49 +42,40 @@ public:
     // Add edge from source to destination with a certain capacity and duration
     void addEdge(int src, int dest, int capacity, int duration);
 
+    void deleteEdge(int src, int dest);
+
     // Depth-First Search: example implementation
     void dfs(int v);
 
     // Breadth-First Search: example implementation
     void bfs(int v);
 
-    // ----- Functions to implement in this class -----
-    int outDegree(int v);
-
     int connectedComponents();
-
-    int giantComponent();
-
-    list<int> topologicalSorting();
-
-    int distance(int a, int b);
-
-    int diameter();
-
-    bool hasCycle();
 
     int dfs1(int v, int &count);
 
     void dfs2(int v, list<int> &order);
 
-    int bfs1(int v, int b);
+    /** @BRIEF Determina o caminho com menos edges desde node v ao node b.**/
+    pair<int, vector<Graph::Edge>> bfs1(int v, int b);
 
     int bfs2();
 
+    /** @BRIEF Determina o caminho com maior capacidade. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, a capacidade desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_maximize_capacity(int start, int finish);
 
+    /** @BRIEF Determina o caminho com menor quantidade de transbordos. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, a capacidade desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_minimize_edges(int start, int finish);
 
-    list<int> getAdjNodes(int n) {
-        list<int> final;
-        for(auto e: nodes[n].adj){
-            final.push_back(e.dest);
-        }
-        return final;
-    }
-
     /** @BRIEF Se existir uma edge entre os nodes a e b, a função retorna a capacidade dessa edge, caso contrário retorna -1.**/
-    int getEdgeCapacity(int a, int b);
+    Edge* getEdge(int a, int b);
+
+    /** @BRIEF Retorna o valor do fluxo máximo de um dado grafo, partindo de flow 0.**/
+    int edmonds_karp(int start, int finish);
+
+    /** @BRIEF Retorna true caso exista uma edge entre a e b, caso contrário, false.**/
+    bool edgeExists(int a, int b);
+
 
 
 };

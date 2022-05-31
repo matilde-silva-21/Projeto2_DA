@@ -4,11 +4,15 @@
 CMakeFiles/Projeto2.dir/Cenario1.cpp.obj: \
  ../Cenario1.cpp \
  ../Cenario1.h \
- ../graph.h
+ ../graph.h \
+ ../maxHeap.h \
+ ../minHeap.h
 CMakeFiles/Projeto2.dir/FileHandler.cpp.obj: \
  ../FileHandler.cpp \
  ../FileHandler.h \
- ../graph.h
+ ../graph.h \
+ ../maxHeap.h \
+ ../minHeap.h
 CMakeFiles/Projeto2.dir/graph.cpp.obj: \
  ../graph.cpp \
  ../graph.h \
@@ -18,4 +22,6 @@ CMakeFiles/Projeto2.dir/main.cpp.obj: \
  ../Cenario1.h \
  ../FileHandler.h \
  ../graph.h \
- ../main.cpp
+ ../main.cpp \
+ ../maxHeap.h \
+ ../minHeap.h
