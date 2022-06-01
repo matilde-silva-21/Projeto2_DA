@@ -90,6 +90,7 @@ pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
                 pai[edge.dest] = v.first;
                 q.increaseKey(edge.dest, cap[edge.dest]);
             }
+            else {continue;}
         }
     }
 
@@ -143,12 +144,12 @@ void Graph::dfs2(int v, list<int> &order) {
 }
 
 
-// Depth-First Search: example implementation
-void Graph::bfs(int v) {
+// Breadth-First Search: example implementation
+void Graph::bfs(int a) {
     for (int v = 1; v <= n; v++) nodes[v].visited = false;
     queue<int> q; // queue of unvisited nodes
-    q.push(v);
-    nodes[v].visited = true;
+    q.push(a);
+    nodes[a].visited = true;
     while (!q.empty()) { // while there are still unvisited nodes
         int u = q.front();
         q.pop();
@@ -232,43 +233,6 @@ std::pair<int, vector<Graph::Edge>> Graph::bfs1(int v, int b) {
     return make_pair(-1, final);
 }
 
-int Graph::bfs2() {
-
-    if (connectedComponents() > 1) return -1;
-    int max = 0;
-
-    //distance representa a distancia de qualquer node ao node 1
-    int predecessor[nodes.size() + 1], distance[nodes.size() + 1];
-    for (int i = 1; i <= n; i++) {
-        distance[i] = INT16_MAX;
-        predecessor[i] = -1;
-        nodes[i].visited = false;
-    }
-    queue<int> q; // queue of unvisited nodes
-    q.push(1);
-    distance[1] = 0;
-    nodes[1].visited = true;
-    while (!q.empty()) { // while there are still unvisited nodes
-        int u = q.front();
-        q.pop();
-        cout << u << " "; // show node order
-        for (auto e: nodes[u].adj) {
-            int w = e.dest;
-            if (!nodes[w].visited) {
-                distance[w] = distance[u] + 1;
-                predecessor[w] = u;
-                q.push(w);
-                nodes[w].visited = true;
-            }
-        }
-    }
-
-    for (int i = 1; i < nodes.size(); i++) {
-        if (distance[i] > max) max = distance[i];
-    }
-
-    return max;
-}
 
 Graph::Edge* Graph::getEdge(int a, int b) {
     for(auto& i: nodes[a].adj){
@@ -351,3 +315,53 @@ bool Graph::Edge::operator==(Graph::Edge &e1) const {
     e1.capacity == capacity &&
     e1.duration == duration);
 }
+
+
+bool Graph::hasCycle() {
+    for(int i = 1; i <= n; i++)
+        nodes[i].color = WHITE;
+    return cycleDfs(1);
+}
+
+bool Graph::cycleDfs(int v){
+    nodes[v].color = GRAY;
+    for(auto e : nodes[v].adj){
+        int w = e.dest;
+        if(nodes[w].color == GRAY) return true;
+        else if (nodes[w].color == WHITE)
+            return cycleDfs(w);
+    }
+    nodes[v].color = BLACK;
+    return false;
+}
+
+void Graph::allPossiblePaths(int start, int end, vector<int>& curPath, vector<vector<int>>& allPaths, bool& empty) {
+
+    for(auto i: nodes[start].adj){
+        curPath.push_back(i.src);
+        if(i.dest == end){
+            curPath.push_back(i.dest);
+            allPaths.push_back(curPath);
+            curPath.pop_back();
+        }
+        else if(nodes[i.dest].adj.empty()){
+            curPath.pop_back();
+            continue;
+        }
+        else{
+            allPossiblePaths(i.dest,end,curPath,allPaths, empty);
+        }
+        curPath.pop_back();
+    }
+
+}
+
+int Graph::getPathCap(vector<int>& path){
+    int min = UINT16_MAX;
+    for(int i = 0; i < path.size() - 1; i++){
+        int cap = getEdge(path[i], path[i+1])->capacity;
+        if(cap < min){min = cap;}
+    }
+    return min;
+}
+

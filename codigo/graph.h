@@ -16,6 +16,10 @@
 using namespace std;
 
 class Graph {
+    enum State{
+        WHITE, GRAY, BLACK
+    };
+
     struct Edge {
         int src;   // Source node
         int dest;   // Destination node
@@ -29,6 +33,7 @@ class Graph {
     struct Node {
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited;  // As the node been visited on a search?
+        State color;
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
@@ -41,8 +46,6 @@ public:
 
     // Add edge from source to destination with a certain capacity and duration
     void addEdge(int src, int dest, int capacity, int duration);
-
-    void deleteEdge(int src, int dest);
 
     // Depth-First Search: example implementation
     void dfs(int v);
@@ -59,7 +62,9 @@ public:
     /** @BRIEF Determina o caminho com menos edges desde node v ao node b.**/
     pair<int, vector<Graph::Edge>> bfs1(int v, int b);
 
-    int bfs2();
+    void allPossiblePaths(int start, int end, vector<int>& curPath, vector<vector<int>>& allPaths, bool& empty);
+
+    int getPathCap(vector<int>& path);
 
     /** @BRIEF Determina o caminho com maior capacidade. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, a capacidade desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_maximize_capacity(int start, int finish);
@@ -76,7 +81,9 @@ public:
     /** @BRIEF Retorna true caso exista uma edge entre a e b, caso contrário, false.**/
     bool edgeExists(int a, int b);
 
+    bool hasCycle();
 
+    bool cycleDfs(int v);
 
 };
 

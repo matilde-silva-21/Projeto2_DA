@@ -10,6 +10,7 @@
 #include "graph.h"
 #include "vector"
 #include <algorithm>
+#include <math.h>
 
 class Cenario1 {
 
