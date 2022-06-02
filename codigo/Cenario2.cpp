@@ -31,24 +31,27 @@ Graph Cenario2::cenario2_1(Graph &g, int start, int finish, int groupDimension) 
 }
 
 
-void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, int value, Graph& residual_network) {
+void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, int value) {
 
     std::cout<<"\n---------------------CENARIO 2 ALINEA 2---------------------\n";
 
     vector<pair<vector<int>,int>> paths;
-    Graph copy = g;
-    if(copy.edmonds_karp(start,finish) < (value+groupDimension)){
+    Graph residual_network = g;
+    if(residual_network.edmonds_karp(start,finish) < (value+groupDimension)){
         std::cout << "\nLooks like you have a lot of friends!\nToo many to make this trip unfortunately, there are no paths that fit all of you :(\n";
         return;
     }
+    residual_network = g;
 
-    Graph graph = g.extractPath(start,finish,value+groupDimension, paths, residual_network);
 
-    //failsafe, se por acaso a iteraçao anterior tiver maximizado o grafo, a rede residual nao sera valida
-    if(paths.empty()){
-        copy = g;
-        graph = g.extractPath(start,finish,value+groupDimension, paths, copy);
-    }
+    /*chamar o cenario 2.1*/
+    Graph graph = g.extractPath(start,finish,groupDimension, paths, residual_network);
+
+    paths.clear();
+
+    /*chamar o cenario 2.2*/
+    graph = g.extractPath(start,finish,value+groupDimension, paths, residual_network);
+
 
     for(int k=0; k<paths.size(); k++){
         std::cout << "\nPath "<<k+1<<": (";
@@ -61,22 +64,21 @@ void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, i
 
 }
 
-void Cenario2::cenario2_3(Graph &g, int start, int finish, Graph& residual_network) {
+void Cenario2::cenario2_3(Graph &g, int start, int finish) {
+    /*constroi o caminho do 0, nao usa a residual network de outro*/
 
     std::cout<<"\n---------------------CENARIO 2 ALINEA 3---------------------\n";
 
     vector<pair<vector<int>,int>> paths;
-    Graph copy = g;
-    int maxflow = copy.edmonds_karp(start,finish);
+    Graph residual_network = g;
+    int maxflow = residual_network.edmonds_karp(start,finish);
+    residual_network = g;
+
 
     std::cout << "\nMaximum number of people to make this trip: "<<maxflow<<"\n\n";
 
     Graph graph = g.extractPath(start,finish,maxflow, paths, residual_network);
-    //failsafe, se por acaso a iteraçao anterior tiver maximizado o grafo, a rede residual nao sera valida
-    if(paths.empty()){
-        copy = g;
-        graph = g.extractPath(start,finish,maxflow, paths, copy);
-    }
+
 
     for(int k=0; k<paths.size(); k++){
         std::cout << "\nPath "<<k+1<<": (";

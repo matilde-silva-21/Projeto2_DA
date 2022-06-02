@@ -11,9 +11,10 @@
 class Cenario2 {
 
 public:
+    /*podia meter o cenario 2 e 3 a chamar os outros primeiro para evitar user error*/
     static Graph cenario2_1(Graph &g,int start, int finish, int groupDimension);
-    static void cenario2_2(Graph &g,int start, int finish, int groupDimension, int value, Graph& residual_network);
-    static void cenario2_3(Graph &g, int start, int finish, Graph& residual_network);
+    static void cenario2_2(Graph &g,int start, int finish, int groupDimension, int value);
+    static void cenario2_3(Graph &g, int start, int finish);
 };
 
 

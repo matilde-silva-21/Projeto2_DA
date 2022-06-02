@@ -29,8 +29,8 @@ int main() {
 
 
     Graph residual_network = Cenario2::cenario2_1(pp1,1,6,5);
-    Cenario2::cenario2_2(pp1,1,6,5, 2, residual_network);
-    Cenario2::cenario2_3(pp1, 1, 6, residual_network);
+    Cenario2::cenario2_2(pp1,1,6,5, 2);
+    Cenario2::cenario2_3(pp1, 1, 6);
 
 
     return 0;
