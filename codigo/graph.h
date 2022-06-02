@@ -56,8 +56,10 @@ public:
     /** @BRIEF Determina o caminho com menos edges desde node v ao node b.**/
     pair<int, vector<Graph::Edge>> bfs1(int v, int b);
 
+    /** @BRIEF Determina todos os caminhos possíveis desde node v ao node b.**/
     void allPossiblePaths(int start, int end, vector<int>& curPath, vector<vector<int>>& allPaths, bool& empty);
 
+    /** @BRIEF Determina a capacidade de um caminho.**/
     int getPathCap(vector<int>& path);
 
     /** @BRIEF Determina o caminho com maior capacidade. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, a capacidade desse mesmo caminho.**/
@@ -81,9 +83,10 @@ public:
     /** @BRIEF Retorna o valor do fluxo de um dado grafo.**/
     int getFlow(int start);
 
-
+    /** @BRIEF Retorna o grafo que representa o encaminhamento para fluxo igual a flowObjective. O valor individualPaths, passado por referência, contém todos os caminhos deste grafo.**/
     Graph extractPath(int start, int finish, int flowObjective, vector<pair<vector<int>,int>>& individualPaths, Graph& residual_network);
 
+    /** @BRIEF Determina o caminho que maximiza o fluxo. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, o fluxo desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_maximize_flow(int start, int finish);
 
 
