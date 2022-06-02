@@ -16,16 +16,13 @@
 using namespace std;
 
 class Graph {
-    enum State{
-        WHITE, GRAY, BLACK
-    };
-
     struct Edge {
         int src;   // Source node
-        int dest;   // Destination node
+        int dest;  // Destination node
         int capacity; // An integer capacity
         int duration; // An integer duration
         int flow;
+        int vacancy; //a edge que me vai dizer se podem passar mais pessoas por aqui (talvez seja obsoleto tendo eu a flow mas prerfiro comecar do zero)
 
         bool operator ==(Edge& e1) const;
     };
@@ -33,7 +30,6 @@ class Graph {
     struct Node {
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited;  // As the node been visited on a search?
-        State color;
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
@@ -81,9 +77,13 @@ public:
     /** @BRIEF Retorna true caso exista uma edge entre a e b, caso contrário, false.**/
     bool edgeExists(int a, int b);
 
-    bool hasCycle();
+    /** @BRIEF Retorna o valor do fluxo de um dado grafo, sendo este valor maior ou igual a um valor n.**/
+    int edmonds_karp_2_1(int start, int finish, int n);
 
-    bool cycleDfs(int v);
+    /** @BRIEF Retorna o valor do fluxo de um dado grafo.**/
+    int getFlow(int start);
+
+
 
 };
 

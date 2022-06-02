@@ -11,8 +11,8 @@ Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num + 1) {
 // Add edge from source to destination with a certain capacity and duration
 void Graph::addEdge(int src, int dest, int capacity, int duration) {
     if (src < 1 || src > n || dest < 1 || dest > n) return;
-    nodes[src].adj.push_back({src, dest, capacity, duration});
-    if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration});
+    nodes[src].adj.push_back({src, dest, capacity, duration, capacity});
+    if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration, capacity});
 }
 
 pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
@@ -67,8 +67,8 @@ pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
 }
 
 pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
-    int pai[n], cap[n];
-    MaxHeap<int, int> q(n, -1);
+    int pai[n+1], cap[n+1];
+    MaxHeap<int, int> q(n+1, -1);
 
     vector<int> path;
 
@@ -76,7 +76,7 @@ pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
     int last=finish, cur=0, min=cap[start], count=0;
 
 
-    for(int i=0; i<n; i++){
+    for(int i=1; i<n+1; i++){
         pai[i] = -1;
         if(i!=start) cap[i] = 0;
         q.insert(i, cap[i]);
@@ -84,13 +84,15 @@ pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
 
     while(q.getSize()!=0){
         pair<int, int> v = q.removeMax();
+        int failsafe = nodes[v.first].adj.size();
         for(Edge edge: nodes[v.first].adj){
+            if(failsafe==0){break;}
             if(std::min(v.second, edge.capacity) > cap[edge.dest]){
                 cap[edge.dest] = std::min(v.second, edge.capacity);
                 pai[edge.dest] = v.first;
                 q.increaseKey(edge.dest, cap[edge.dest]);
             }
-            else {continue;}
+            failsafe--;
         }
     }
 
@@ -106,6 +108,7 @@ pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
 
     return make_pair(path, min);
 }
+
 
 // Depth-First Search: example implementation
 void Graph::dfs(int v) {
@@ -247,7 +250,6 @@ Graph::Edge* Graph::getEdge(int a, int b) {
 
 int Graph::edmonds_karp(int start, int finish) {
 
-    int finalflow = 0;
     Graph residual_network = *this;
     for(Node& node: nodes){
         for(Edge& e: node.adj){
@@ -288,19 +290,8 @@ int Graph::edmonds_karp(int start, int finish) {
     }
 
 
-    for(auto& e: nodes[start].adj){
-        finalflow += e.flow;
-    }
 
-    for(auto& node: nodes){
-        for(auto& e: node.adj){
-            if(e.dest == start){
-                finalflow -= e.flow;
-            }
-        }
-    }
-
-    return finalflow;
+    return getFlow(start);
 
 }
 
@@ -314,25 +305,6 @@ bool Graph::Edge::operator==(Graph::Edge &e1) const {
     e1.src == src &&
     e1.capacity == capacity &&
     e1.duration == duration);
-}
-
-
-bool Graph::hasCycle() {
-    for(int i = 1; i <= n; i++)
-        nodes[i].color = WHITE;
-    return cycleDfs(1);
-}
-
-bool Graph::cycleDfs(int v){
-    nodes[v].color = GRAY;
-    for(auto e : nodes[v].adj){
-        int w = e.dest;
-        if(nodes[w].color == GRAY) return true;
-        else if (nodes[w].color == WHITE)
-            return cycleDfs(w);
-    }
-    nodes[v].color = BLACK;
-    return false;
 }
 
 void Graph::allPossiblePaths(int start, int end, vector<int>& curPath, vector<vector<int>>& allPaths, bool& empty) {
@@ -363,5 +335,73 @@ int Graph::getPathCap(vector<int>& path){
         if(cap < min){min = cap;}
     }
     return min;
+}
+
+int Graph::getFlow(int start) {
+
+    int finalflow = 0;
+
+    for(auto& e: nodes[start].adj){
+        finalflow += e.flow;
+    }
+
+    for(auto& node: nodes){
+        for(auto& e: node.adj){
+            if(e.dest == start){
+                finalflow -= e.flow;
+            }
+        }
+    }
+
+    return finalflow;
+}
+
+int Graph::edmonds_karp_2_1(int start, int finish, int n) {
+
+    Graph residual_network = *this;
+    for(Node& node: nodes){
+        for(Edge& e: node.adj){
+            e.flow = 0;
+        }
+    }
+
+    std::pair<int, vector<Graph::Edge>> bfs_result = residual_network.bfs1(start, finish);
+    vector<Edge> path = bfs_result.second;
+    int cp = bfs_result.first;
+
+    while(cp != -1 || getFlow(start) >= n){
+        for(Edge &e: path){
+            if(edgeExists(e.src,e.dest)){
+                getEdge(e.src, e.dest)->flow += cp;
+            }
+
+            else getEdge(e.dest, e.src)->flow -= cp;
+        }
+
+        for(auto& node: nodes){
+            for(auto& e: node.adj){
+                int cf = e.capacity - e.flow;
+                if(cf >= 0){
+                    if(edgeExists(e.src,e.dest)){residual_network.getEdge(e.src, e.dest)->capacity = cf;}
+                    else residual_network.addEdge(e.src,e.dest,cf,-1);
+                }
+                else{
+                    residual_network.addEdge(e.dest,e.src,e.flow,-1);
+                }
+            }
+        }
+
+
+        bfs_result = residual_network.bfs1(start, finish);
+        cp = bfs_result.first;
+        path = bfs_result.second;
+    }
+
+
+
+    return getFlow(start);
+
+    //como extrair o encaminhamento?
+
 }
 

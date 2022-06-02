@@ -6,7 +6,7 @@
 int main() {
 
     FileHandler f1;
-    std::string file("../tests/in01_b.txt");
+    std::string file("../tests/in03_b.txt");
     Graph g = f1.readTrips(file);
 
     //s-1 A-2 B-3 C-4 D-5 t-6
@@ -23,7 +23,7 @@ int main() {
 
 
     cout << "edmonds-karp: "<<pp1.edmonds_karp(1,6)<<endl;*/
-    Cenario1::cenario1_1(g,1,50);
+    /**/Cenario1::cenario1_1(g,1,50);
     Cenario1::cenario1_2(g, 1, 50);
 
 

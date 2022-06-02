@@ -7,6 +7,12 @@ CMakeFiles/Projeto2.dir/Cenario1.cpp.obj: \
  ../graph.h \
  ../maxHeap.h \
  ../minHeap.h
+CMakeFiles/Projeto2.dir/Cenario2.cpp.obj: \
+ ../Cenario2.cpp \
+ ../Cenario2.h \
+ ../graph.h \
+ ../maxHeap.h \
+ ../minHeap.h
 CMakeFiles/Projeto2.dir/FileHandler.cpp.obj: \
  ../FileHandler.cpp \
  ../FileHandler.h \

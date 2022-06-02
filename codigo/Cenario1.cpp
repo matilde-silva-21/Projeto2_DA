@@ -53,4 +53,5 @@ void Cenario1::cenario1_2(Graph &g,int start, int finish) {
         std::cout << ")\nCapacity: "<<g.getPathCap(paretOpt[k])<<" Transhipments: "<<paretOpt[k].size()-2<<"\n";
     }
 
+    //adicionar condicional, caso so haja um path (dataset pequeno) mandar o maximize_cap e minimize edges?
 }

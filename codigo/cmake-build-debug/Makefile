@@ -152,6 +152,30 @@ Cenario1.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto2.dir\build.make CMakeFiles/Projeto2.dir/Cenario1.cpp.s
 .PHONY : Cenario1.cpp.s
 
+Cenario2.obj: Cenario2.cpp.obj
+.PHONY : Cenario2.obj
+
+# target to build an object file
+Cenario2.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto2.dir\build.make CMakeFiles/Projeto2.dir/Cenario2.cpp.obj
+.PHONY : Cenario2.cpp.obj
+
+Cenario2.i: Cenario2.cpp.i
+.PHONY : Cenario2.i
+
+# target to preprocess a source file
+Cenario2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto2.dir\build.make CMakeFiles/Projeto2.dir/Cenario2.cpp.i
+.PHONY : Cenario2.cpp.i
+
+Cenario2.s: Cenario2.cpp.s
+.PHONY : Cenario2.s
+
+# target to generate assembly for a file
+Cenario2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto2.dir\build.make CMakeFiles/Projeto2.dir/Cenario2.cpp.s
+.PHONY : Cenario2.cpp.s
+
 FileHandler.obj: FileHandler.cpp.obj
 .PHONY : FileHandler.obj
 
@@ -236,6 +260,9 @@ help:
 	@echo ... Cenario1.obj
 	@echo ... Cenario1.i
 	@echo ... Cenario1.s
+	@echo ... Cenario2.obj
+	@echo ... Cenario2.i
+	@echo ... Cenario2.s
 	@echo ... FileHandler.obj
 	@echo ... FileHandler.i
 	@echo ... FileHandler.s
