@@ -50,7 +50,7 @@ void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, i
     paths.clear();
 
     /*chamar o cenario 2.2*/
-    graph = g.extractPath(start,finish,value+groupDimension, paths, residual_network);
+    graph = g.extractPath(start,finish,value, paths, residual_network);
 
 
     for(int k=0; k<paths.size(); k++){

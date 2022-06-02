@@ -255,19 +255,26 @@ int Graph::edmonds_karp(int start, int finish) {
 
     std::pair<int, vector<Graph::Edge>> bfs_result = residual_network.bfs1(start, finish);
     vector<Edge> path = bfs_result.second;
-    int cp = bfs_result.first;
+    int cp = bfs_result.first, failsafe1, failsafe2, failsafe3;
 
     while(cp != -1){
+        failsafe1 = path.size();
         for(Edge &e: path){
+            if(failsafe1==0){break;}
             if(edgeExists(e.src,e.dest)){
                 getEdge(e.src, e.dest)->flow += cp;
             }
 
             else getEdge(e.dest, e.src)->flow -= cp;
+            failsafe1--;
         }
 
+        failsafe2 = nodes.size();
         for(auto& node: nodes){
+            if(failsafe2==0){break;}
+            failsafe3 = node.adj.size();
             for(auto& e: node.adj){
+                if(failsafe3==0){break;}
                 int cf = e.capacity - e.flow;
                 if(cf >= 0){
                     if(edgeExists(e.src,e.dest)){residual_network.getEdge(e.src, e.dest)->capacity = cf;}
@@ -276,7 +283,9 @@ int Graph::edmonds_karp(int start, int finish) {
                 else{
                     residual_network.addEdge(e.dest,e.src,e.flow,-1);
                 }
+                failsafe3--;
             }
+            failsafe2--;
         }
 
 
@@ -357,19 +366,26 @@ int Graph::edmonds_karp_2(int start, int finish, int flowObjective, Graph& resid
 
     std::pair<int, vector<Graph::Edge>> bfs_result = residual_network.bfs1(start, finish);
     vector<Edge> path = bfs_result.second;
-    int cp = bfs_result.first, c = getFlow(start);
+    int cp = bfs_result.first, c = getFlow(start), failsafe1, failsafe2, failsafe3;
 
     while(cp != -1 && c < flowObjective){
+        failsafe1 = path.size();
         for(Edge &e: path){
+            if(failsafe1==0){break;}
             if(edgeExists(e.src,e.dest)){
                 getEdge(e.src, e.dest)->flow += cp;
             }
 
             else getEdge(e.dest, e.src)->flow -= cp;
+            failsafe1--;
         }
 
+        failsafe2 = nodes.size();
         for(auto& node: nodes){
+            if(failsafe2==0){break;}
+            failsafe3 = node.adj.size();
             for(auto& e: node.adj){
+                if(failsafe3==0){break;}
                 int cf = e.capacity - e.flow;
                 if(cf >= 0){
                     if(edgeExists(e.src,e.dest)){residual_network.getEdge(e.src, e.dest)->capacity = cf;}
@@ -378,7 +394,9 @@ int Graph::edmonds_karp_2(int start, int finish, int flowObjective, Graph& resid
                 else{
                     residual_network.addEdge(e.dest,e.src,e.flow,-1);
                 }
+                failsafe3--;
             }
+            failsafe2--;
         }
 
 
@@ -455,7 +473,7 @@ Graph Graph::extractPath(int start, int finish, int flowObjective, vector<pair<v
 
     while(flow != -1 && (flow <= flowObjective || flowObjective > 0)){
 
-        if((flowObjective - flow)<0){individualPaths.emplace_back(path,flow - flowObjective);}
+        if((flowObjective - flow)<0){individualPaths.emplace_back(path,flowObjective);}
         else individualPaths.emplace_back(path,flow);
         for(int i=0; i<path.size()-1; i++){
             Edge e = *getEdge(path[i], path[i+1]);

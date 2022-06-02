@@ -7,7 +7,7 @@
 int main() {
 
     FileHandler f1;
-    std::string file("../tests/in01_b.txt");
+    std::string file("../tests/in02_b.txt");
     Graph g = f1.readTrips(file);
 
     //s-1 A-2 B-3 C-4 D-5 t-6
@@ -28,9 +28,9 @@ int main() {
     Cenario1::cenario1_2(g, 1, 50);*/
 
 
-    Graph residual_network = Cenario2::cenario2_1(pp1,1,6,5);
-    Cenario2::cenario2_2(pp1,1,6,5, 2);
-    Cenario2::cenario2_3(pp1, 1, 6);
+    Graph residual_network = Cenario2::cenario2_1(g,1,50,20);
+    //Cenario2::cenario2_2(g,1,300,50, 20);
+    Cenario2::cenario2_3(g, 1, 50);
 
 
     return 0;
