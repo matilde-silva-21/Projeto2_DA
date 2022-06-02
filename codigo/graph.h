@@ -22,8 +22,6 @@ class Graph {
         int capacity; // An integer capacity
         int duration; // An integer duration
         int flow;
-        int vacancy; //a edge que me vai dizer se podem passar mais pessoas por aqui (talvez seja obsoleto tendo eu a flow mas prerfiro comecar do zero)
-
         bool operator ==(Edge& e1) const;
     };
 
@@ -77,12 +75,16 @@ public:
     /** @BRIEF Retorna true caso exista uma edge entre a e b, caso contrário, false.**/
     bool edgeExists(int a, int b);
 
-    /** @BRIEF Retorna o valor do fluxo de um dado grafo, sendo este valor maior ou igual a um valor n.**/
-    int edmonds_karp_2_1(int start, int finish, int n);
+    /** @BRIEF Retorna o valor do fluxo de um dado grafo, sendo este valor maior ou igual a um valor flowObjective.**/
+    int edmonds_karp_2(int start, int finish, int flowObjective, Graph& residual_network);
 
     /** @BRIEF Retorna o valor do fluxo de um dado grafo.**/
     int getFlow(int start);
 
+
+    Graph extractPath(int start, int finish, int flowObjective, vector<pair<vector<int>,int>>& individualPaths, Graph& residual_network);
+
+    pair<vector<int>,int> dijkstra_maximize_flow(int start, int finish);
 
 
 };

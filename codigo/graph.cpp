@@ -11,8 +11,8 @@ Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num + 1) {
 // Add edge from source to destination with a certain capacity and duration
 void Graph::addEdge(int src, int dest, int capacity, int duration) {
     if (src < 1 || src > n || dest < 1 || dest > n) return;
-    nodes[src].adj.push_back({src, dest, capacity, duration, capacity});
-    if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration, capacity});
+    nodes[src].adj.push_back({src, dest, capacity, duration, 0});
+    if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration, 0});
 }
 
 pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
@@ -65,6 +65,7 @@ pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
     }
     return make_pair(course, -1);
 }
+
 
 pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
     int pai[n+1], cap[n+1];
@@ -167,11 +168,6 @@ void Graph::bfs(int a) {
     }
 }
 
-// ----------------------------------------------------------
-// Exercicio 1: Introdução a uma classe simplificada de grafos
-// ----------------------------------------------------------
-
-
 int Graph::connectedComponents() {
     int counter = 0;
     for (int v = 1; v <= n; v++) { nodes[v].visited = false; }
@@ -184,7 +180,6 @@ int Graph::connectedComponents() {
 
     return counter;
 }
-
 
 //esta funcao ve a menor distancia do nó V ao nó B
 std::pair<int, vector<Graph::Edge>> Graph::bfs1(int v, int b) {
@@ -223,6 +218,7 @@ std::pair<int, vector<Graph::Edge>> Graph::bfs1(int v, int b) {
                         final.emplace(final.begin(),*getEdge(predecessor[w], w));
                         w = predecessor[w];
                     }
+
                     return make_pair(min, final);
                 }
             }
@@ -356,20 +352,14 @@ int Graph::getFlow(int start) {
     return finalflow;
 }
 
-int Graph::edmonds_karp_2_1(int start, int finish, int n) {
+int Graph::edmonds_karp_2(int start, int finish, int flowObjective, Graph& residual_network) {
 
-    Graph residual_network = *this;
-    for(Node& node: nodes){
-        for(Edge& e: node.adj){
-            e.flow = 0;
-        }
-    }
 
     std::pair<int, vector<Graph::Edge>> bfs_result = residual_network.bfs1(start, finish);
     vector<Edge> path = bfs_result.second;
-    int cp = bfs_result.first;
+    int cp = bfs_result.first, c = getFlow(start);
 
-    while(cp != -1 || getFlow(start) >= n){
+    while(cp != -1 && c < flowObjective){
         for(Edge &e: path){
             if(edgeExists(e.src,e.dest)){
                 getEdge(e.src, e.dest)->flow += cp;
@@ -395,13 +385,94 @@ int Graph::edmonds_karp_2_1(int start, int finish, int n) {
         bfs_result = residual_network.bfs1(start, finish);
         cp = bfs_result.first;
         path = bfs_result.second;
+        c = getFlow(start);
     }
 
 
-
-    return getFlow(start);
+    c = getFlow(start);
+    return c;
 
     //como extrair o encaminhamento?
+
+}
+
+
+pair<vector<int>,int> Graph::dijkstra_maximize_flow(int start, int finish){
+    int pai[n+1], flow[n+1];
+    MaxHeap<int, int> q(n+1, -1);
+
+    vector<int> path;
+
+    flow[start] = UINT16_MAX;
+    int last=finish, cur=0, min=flow[start], count=0;
+
+
+    for(int i=1; i<n+1; i++){
+        pai[i] = -1;
+        if(i!=start) flow[i] = 0;
+        q.insert(i, flow[i]);
+    }
+
+    while(q.getSize()!=0){
+        pair<int, int> v = q.removeMax();
+        int failsafe = nodes[v.first].adj.size();
+        for(Edge edge: nodes[v.first].adj){
+            if(failsafe==0){break;}
+            if(std::min(v.second, edge.flow) > flow[edge.dest]){
+                flow[edge.dest] = std::min(v.second, edge.flow);
+                pai[edge.dest] = v.first;
+                q.increaseKey(edge.dest, flow[edge.dest]);
+            }
+            failsafe--;
+        }
+    }
+
+
+    while(last != start){
+        path.insert(path.begin(), last);
+        cur = pai[last];
+        if(cur == -1){path.clear(); return make_pair(path, -1);}
+        if(flow[cur] < min) {min = flow[cur];}
+        last = cur;
+    }
+
+    path.insert(path.begin(), start);
+
+    for(int i=0; i<path.size()-1; i++){
+        getEdge(path[i], path[i+1])->flow -= min;
+    }
+
+    return make_pair(path, min);
+}
+
+Graph Graph::extractPath(int start, int finish, int flowObjective, vector<pair<vector<int>,int>>& individualPaths, Graph& residual_network){
+    Graph answer(n, true);
+
+    int c = edmonds_karp_2(start, finish, flowObjective, residual_network);
+    pair<vector<int>,int> func = dijkstra_maximize_flow(start, finish);
+    vector<int> path = func.first;
+    int flow = func.second;
+
+    while(flow != -1 && (flow <= flowObjective || flowObjective > 0)){
+
+        if((flowObjective - flow)<0){individualPaths.emplace_back(path,flow - flowObjective);}
+        else individualPaths.emplace_back(path,flow);
+        for(int i=0; i<path.size()-1; i++){
+            Edge e = *getEdge(path[i], path[i+1]);
+            answer.addEdge(e.src, e.dest,e.capacity, e.duration);
+        }
+
+        if(flow == flowObjective){break;}
+
+        flowObjective-=flow;
+        c = edmonds_karp_2(start, finish, flowObjective, residual_network);
+
+        func = dijkstra_maximize_flow(start, finish);
+        path = func.first;
+        flow = func.second;
+    }
+
+    return answer;
 
 }
 

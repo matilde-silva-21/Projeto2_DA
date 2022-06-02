@@ -11,7 +11,9 @@
 class Cenario2 {
 
 public:
-    static void cenario2_1(Graph &g,int start, int finish);
+    static Graph cenario2_1(Graph &g,int start, int finish, int groupDimension);
+    static void cenario2_2(Graph &g,int start, int finish, int groupDimension, int value, Graph& residual_network);
+    static void cenario2_3(Graph &g, int start, int finish, Graph& residual_network);
 };
 
 

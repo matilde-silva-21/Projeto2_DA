@@ -26,6 +26,7 @@ CMakeFiles/Projeto2.dir/graph.cpp.obj: \
  ../minHeap.h
 CMakeFiles/Projeto2.dir/main.cpp.obj: \
  ../Cenario1.h \
+ ../Cenario2.h \
  ../FileHandler.h \
  ../graph.h \
  ../main.cpp \
