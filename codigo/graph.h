@@ -25,13 +25,15 @@ class Graph {
         bool operator ==(Edge& e1) const;
     };
 
-    struct Node {
-        list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
-        bool visited;  // As the node been visited on a search?
-    };
-
     int n;              // Graph size (vertices are numbered from 1 to n)
     bool hasDir;        // false: undirect; true: directed
+
+    struct Node {
+        list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
+        bool visited;  // As the node been visited on a search
+        vector<int> reachable_nodes;
+    };
+
     vector<Node> nodes; // The list of nodes being represented
 
 public:
@@ -45,7 +47,7 @@ public:
     void dfs(int v);
 
     // Breadth-First Search: example implementation
-    void bfs(int v);
+    vector<int> bfs(int v);
 
     int connectedComponents();
 

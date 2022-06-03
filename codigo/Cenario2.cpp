@@ -4,7 +4,7 @@
 
 #include "Cenario2.h"
 
-Graph Cenario2::cenario2_1(Graph &g, int start, int finish, int groupDimension) {
+Graph Cenario2::cenario2_1(Graph g, int start, int finish, int groupDimension) {
 
     std::cout<<"\n---------------------CENARIO 2 ALINEA 1---------------------\n";
 
@@ -31,7 +31,7 @@ Graph Cenario2::cenario2_1(Graph &g, int start, int finish, int groupDimension) 
 }
 
 
-void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, int value) {
+void Cenario2::cenario2_2(Graph g, int start, int finish, int groupDimension, int value) {
 
     std::cout<<"\n---------------------CENARIO 2 ALINEA 2---------------------\n";
 
@@ -50,7 +50,7 @@ void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, i
     paths.clear();
 
     /*chamar o cenario 2.2*/
-    graph = g.extractPath(start,finish,value, paths, residual_network);
+    graph = g.extractPath(start,finish,value+groupDimension, paths, residual_network);
 
 
     for(int k=0; k<paths.size(); k++){
@@ -64,7 +64,7 @@ void Cenario2::cenario2_2(Graph &g, int start, int finish, int groupDimension, i
 
 }
 
-void Cenario2::cenario2_3(Graph &g, int start, int finish) {
+void Cenario2::cenario2_3(Graph g, int start, int finish) {
     /*constroi o caminho do 0, nao usa a residual network de outro*/
 
     std::cout<<"\n---------------------CENARIO 2 ALINEA 3---------------------\n";

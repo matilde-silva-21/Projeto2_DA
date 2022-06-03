@@ -149,7 +149,10 @@ void Graph::dfs2(int v, list<int> &order) {
 
 
 // Breadth-First Search: example implementation
-void Graph::bfs(int a) {
+vector<int> Graph::bfs(int a) {
+
+    vector<int> vec(n+1, 0);
+
     for (int v = 1; v <= n; v++) nodes[v].visited = false;
     queue<int> q; // queue of unvisited nodes
     q.push(a);
@@ -157,7 +160,7 @@ void Graph::bfs(int a) {
     while (!q.empty()) { // while there are still unvisited nodes
         int u = q.front();
         q.pop();
-        cout << u << " "; // show node order
+        vec[u] = 1;
         for (auto e: nodes[u].adj) {
             int w = e.dest;
             if (!nodes[w].visited) {
@@ -166,6 +169,8 @@ void Graph::bfs(int a) {
             }
         }
     }
+
+    return vec;
 }
 
 int Graph::connectedComponents() {
@@ -493,4 +498,7 @@ Graph Graph::extractPath(int start, int finish, int flowObjective, vector<pair<v
     return answer;
 
 }
+
+
+
 
