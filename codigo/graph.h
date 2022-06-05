@@ -69,9 +69,6 @@ public:
     /** @BRIEF Determina o caminho com maior capacidade. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, a capacidade desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_maximize_capacity(int start, int finish);
 
-    /** @BRIEF Determina o caminho com menor quantidade de transbordos. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, a capacidade desse mesmo caminho.**/
-    pair<vector<int>,int> dijkstra_minimize_edges(int start, int finish);
-
     /** @BRIEF Se existir uma edge entre os nodes a e b, a função retorna a capacidade dessa edge, caso contrário retorna -1.**/
     Edge* getEdge(int a, int b);
 

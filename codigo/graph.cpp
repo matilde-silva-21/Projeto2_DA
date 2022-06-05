@@ -15,13 +15,6 @@ void Graph::addEdge(int src, int dest, int capacity, int duration) {
     if (!hasDir) nodes[dest].adj.push_back({src, dest, capacity, duration, 0});
 }
 
-pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
-
-    pair<vector<int>,int> mike;
-    return mike;
-
-}
-
 
 pair<vector<int>,int> Graph::dijkstra_maximize_capacity(int start, int finish){
     int pai[n+1], cap[n+1];
