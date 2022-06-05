@@ -265,84 +265,49 @@ bool Graph::Edge::operator==(Graph::Edge &e1) const {
     e1.duration == duration);
 }
 
-vector<pair<int, vector<vector<int>>>>/*vector<vector<int>>*/ Graph::allPossiblePaths(int start, int end, int edgeBound, int capBound) {
+vector<pair<int, vector<vector<int>>>>/*vector<vector<int>>*/ Graph::allPossiblePaths(int start, int finish, int edgeBound, int capBound, int flowObjective) {
 
+    Graph residual_network = *this;
 
-    vector<vector<int>> roy;
+    vector<pair<int, vector<vector<int>>>> individualPaths;
 
-    vector<pair<int, vector<vector<int>>>> finalBoss;
-
-    for(int i=0; i<edgeBound+1; i++){
-        vector<vector<int>> steve;
-        finalBoss.emplace_back(0, steve);
+    for(int i=0; i<edgeBound ; i++){
+        vector<vector<int>> dummy;
+        individualPaths.emplace_back(0,dummy);
     }
 
+    int c = edmonds_karp_2(start, finish, flowObjective, residual_network);
+    pair<vector<int>,int> func = dijkstra_maximize_flow(start, finish);
+    vector<int> path = func.first;
+    int flow = func.second, pathCap = getPathCap(path);
 
-    for (auto& edge: nodes[start].adj) {
-        vector<int> jane;
-        jane.push_back(start);
-        jane.push_back(edge.dest);
-        roy.push_back(jane);
+    while(flow != -1 && (flow <= flowObjective || flowObjective > 0)){
+
+        if(pathCap < capBound || path.size() > edgeBound){}
+
+        else if(individualPaths[path.size()-1].first < pathCap){
+            if(individualPaths[path.size()-2].first == pathCap){
+                individualPaths[path.size()-2].second.push_back(path);
+            }
+            else if(individualPaths[path.size()-2].first < pathCap){
+                individualPaths[path.size()-2].first = pathCap;
+                individualPaths[path.size()-2].second.clear();
+                individualPaths[path.size()-2].second.push_back(path);
+            }
+        }
+
+        if(flow == flowObjective){break;}
+
+        flowObjective-=flow;
+        c = edmonds_karp_2(start, finish, flowObjective, residual_network);
+
+        func = dijkstra_maximize_flow(start, finish);
+        path = func.first;
+        flow = func.second;
+        if(!path.empty())pathCap = getPathCap(path);
     }
 
-    while(!roy.empty()){
-        vector<int> hector = roy.front();
-        roy.erase(roy.begin());
-        for(auto& edge: nodes[hector.back()].adj){
-            vector<int> jane = hector;
-            jane.push_back(edge.dest);
-            int curPathCap = getPathCap(jane);
-            if(curPathCap < capBound || jane.size() > edgeBound || curPathCap < finalBoss[jane.size()-1].first){
-                continue;
-            }
-
-            else if(edge.dest == end){
-                if(curPathCap > finalBoss[jane.size()-2].first && curPathCap > finalBoss[jane.size()-1].first){
-                    finalBoss[jane.size()-2].first = curPathCap;
-                    finalBoss[jane.size()-2].second.clear();
-                    finalBoss[jane.size()-2].second.push_back(jane);
-                }
-                else if(curPathCap == finalBoss[jane.size()-2].first){
-                    finalBoss[jane.size()-2].second.push_back(jane);
-                }
-
-            }
-
-            else{
-                roy.push_back(jane);
-            }
-        }
-    }
-
-    return finalBoss;
-
-    /*for(auto i: nodes[start].adj){
-        curPath.push_back(i.src);
-        int curPathCap = getPathCap(curPath);
-        if(i.dest == end && (curPath.size()+1) <= edgeBound){
-            curPath.push_back(i.dest);
-
-            if(allPaths[curPath.size()-1].first < curPathCap){
-                allPaths[curPath.size()-2].first = curPathCap;
-                allPaths[curPath.size()-2].second.clear();
-                allPaths[curPath.size()-2].second.push_back(curPath);
-            }
-
-            else if(allPaths[curPath.size()-2].first == curPathCap){
-                allPaths[curPath.size()-2].second.push_back(curPath);
-            }
-            curPath.pop_back();
-        }
-
-        else if(nodes[i.dest].adj.empty() || curPath.size() > edgeBound || allPaths[curPath.size()-2].first == curPathCap){
-            curPath.pop_back();
-            continue;
-        }
-        else{
-            allPossiblePaths(i.dest,end,curPath,allPaths, edgeBound);
-        }
-        curPath.pop_back();
-    }*/
+    return individualPaths;
 
 }
 

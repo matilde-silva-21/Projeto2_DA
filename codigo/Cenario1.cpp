@@ -30,7 +30,7 @@ void Cenario1::cenario1_2(Graph &g,int start, int finish) {
     int capBound = g.bfs1(1, 50).first;
 
 
-    vector<pair<int, vector<vector<int>>>> allPaths = g.allPossiblePaths(start, finish, edgeBound, capBound);
+    vector<pair<int, vector<vector<int>>>> allPaths = g.allPossiblePaths(start, finish, edgeBound, capBound, 20);
     //vector<vector<int>> allPaths = g.allPossiblePaths(start, finish, edgeBound, capBound);
 
     for(auto& pair: allPaths){

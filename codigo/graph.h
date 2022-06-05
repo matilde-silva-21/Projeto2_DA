@@ -61,7 +61,7 @@ public:
     pair<int, vector<Graph::Edge>> bfs1(int v, int b);
 
     /** @BRIEF Determina todos os caminhos possíveis desde node v ao node b.**/
-    vector<pair<int, vector<vector<int>>>> allPossiblePaths(int start, int end, int edgeBound, int capBound);
+    /*vector<vector<int>>*/vector<pair<int, vector<vector<int>>>> allPossiblePaths(int start, int finish, int edgeBound, int capBound, int flowObjective);
 
     /** @BRIEF Determina a capacidade de um caminho.**/
     int getPathCap(vector<int>& path);
