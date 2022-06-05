@@ -90,6 +90,7 @@ public:
     /** @BRIEF Determina o caminho que maximiza o fluxo. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, o fluxo desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_maximize_flow(int start, int finish);
 
+    pair<vector<int>,int> earliest_start(int start, int finish);
 
 };
 
