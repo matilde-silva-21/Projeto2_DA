@@ -60,7 +60,7 @@ public:
     /** @BRIEF Determina o caminho com menos edges desde node v ao node b. Retorna o respetivo caminho e a capacidade do mesmo.**/
     pair<int, vector<Graph::Edge>> bfs1(int v, int b);
 
-    /** @BRIEF Determina todos os caminhos possíveis desde node v ao node b.**/
+    /** @BRIEF Determina todos os caminhos possíveis desde node v ao node b, retornando apenas os valores pareto-ótimos.**/
     /*vector<vector<int>>*/vector<pair<int, vector<vector<int>>>> allPossiblePaths(int start, int finish, int edgeBound, int capBound, int flowObjective);
 
     /** @BRIEF Determina a capacidade de um caminho.**/
