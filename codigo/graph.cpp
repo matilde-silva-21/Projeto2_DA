@@ -506,6 +506,56 @@ Graph Graph::extractPath(int start, int finish, int flowObjective, vector<pair<v
 
 }
 
+pair<vector<int>,int> Graph::earliest_start(int start, int finish) {
+
+    int last = finish, cur = 0;
+    int v = 1, final;
+    vector<int> path;
+
+    int predecessor[n + 1], ES[n + 1], GrauE[n + 1], durMin = -1;
+    for (int i = 0; i < n + 1; i++) {
+        ES[i] = 0;
+        GrauE[i] = 0;
+        predecessor[i] = -1;
+        nodes[i].visited = false;
+    }
+    queue<int> q;
+    q.push(v);
+    nodes[v].visited = true;
+    while (!q.empty()) { // while there are still unvisited nodes
+        int u = q.front();
+        q.pop();
+        if (durMin < ES[u])
+            durMin = ES[u];
+        for (auto e: nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                GrauE[w] += 1;
+                predecessor[w] = u;
+                q.push(w);
+                nodes[w].visited = true;
+            }
+            int dur = e.duration;
+            if (ES[w] < ES[u] + dur) {
+                ES[w] = ES[u] + dur;
+                predecessor[w] = u;
+            }
+            GrauE[w] -= 1;
+            if (GrauE[w] == 0)
+                q.push(w);
+        }
+    }
+
+    while(last != start){
+        path.insert(path.begin(), last);
+        last = predecessor[last];
+    }
+
+    path.insert(path.begin(), start);
+
+    return make_pair(path, durMin);
+}
+
 int Graph::getN() {
     return n;
 }

@@ -90,3 +90,16 @@ void Cenario2::cenario2_3(Graph g, int start, int finish) {
     }
 
 }
+
+void Cenario2::cenario2_4(Graph g, int start, int finish) {
+    std::cout<<"\n---------------------CENARIO 2 ALINEA 4---------------------\n\n";
+    pair<vector<int>,int> k = g.earliest_start(start, finish);
+
+    std::cout<<"Path that the group took: (";
+
+    for(int i=0; i<k.first.size(); i++){
+        std::cout << k.first[i];
+        if(i!=k.first.size()-1){std::cout<<",";}
+    }
+    std::cout<<")\nMinimum Time required for the group to reunite: "<<k.second<<" Transhipments: "<<k.first.size()-2<< "\n\n";
+}

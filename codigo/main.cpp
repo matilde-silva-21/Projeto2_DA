@@ -9,7 +9,7 @@ void menu(){
     std::string file, choice;
 
     while(true) {
-        std::cout << "\nPlease choose the dataset (1-10): ";
+        std::cout << "\nPlease choose the dataset (0-10): ";
         std::cin >> choice;
         dataset = stoi(choice);
         if (dataset > 10 || dataset < 0) {
@@ -121,7 +121,7 @@ void menu(){
             Cenario2::cenario2_3(g,start,end);
         }
         else if(sub_problem==4){
-            //chamar cenario 2_4 aqui
+            Cenario2::cenario2_4(g,start,end);
         }
         else if(sub_problem==5){
             //chamar cenario 2_5 aqui
