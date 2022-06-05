@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.cpp
+Cenario1.h
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
+
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
 iostream
 -
@@ -18,21 +22,15 @@ algorithm
 math.h
 -
 
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario2.cpp
+Cenario2.h
+C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario2.h
+
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario2.h
 iostream
 -
 graph.h
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
-
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/FileHandler.h
-string
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/string
-fstream
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/fstream
-graph.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
-map
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/map
 
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
 vector
@@ -51,18 +49,6 @@ algorithm
 -
 iterator
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/iterator
-
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/main.cpp
-iostream
--
-FileHandler.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/FileHandler.h
-graph.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/graph.h
-Cenario1.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario1.h
-Cenario2.h
-C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/Cenario2.h
 
 C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/maxHeap.h
 vector

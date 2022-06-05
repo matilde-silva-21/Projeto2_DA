@@ -8,7 +8,7 @@
 
 void Cenario1::cenario1_1(Graph &g, int start, int finish) {
 
-    std::cout<<"\n---------------------CENARIO 1 ALINEA 1---------------------\n\n";
+    std::cout<<"\n---------------------SCENARIO 1 SUB-PROBLEM 1---------------------\n\n";
     pair<vector<int>,int> k = g.dijkstra_maximize_capacity(start, finish);
 
     std::cout<<"Path that maximizes capacity: (";
@@ -23,35 +23,38 @@ void Cenario1::cenario1_1(Graph &g, int start, int finish) {
 
 void Cenario1::cenario1_2(Graph &g,int start, int finish) {
 
-    std::cout<<"\n---------------------CENARIO 1 ALINEA 2---------------------\n\n";
+    std::cout<<"\n---------------------SCENARIO 1 SUB-PROBLEM 2---------------------\n\n";
 
     std::cout << "Paret-Optimal path(s): \n\n";
-    vector<int> curPath;
-    vector<vector<int>> allPaths, paretOpt;
-    float curBestRatio=0.0;
-    bool empty = true;
-    g.allPossiblePaths(start, finish, curPath, allPaths, empty);
+    int edgeBound = g.dijkstra_maximize_capacity(start, finish).first.size(), count = 0;
+    int capBound = g.bfs1(1, 50).first;
 
-    for(auto l: allPaths){
-        float ratio = ((float)(g.getPathCap(l)))/((float)(l.size() - 1));
-        if(roundf(ratio) > roundf(curBestRatio)){
-            curBestRatio = ratio;
-            paretOpt.clear();
-            paretOpt.push_back(l);
+
+    vector<pair<int, vector<vector<int>>>> allPaths = g.allPossiblePaths(start, finish, edgeBound, capBound);
+    //vector<vector<int>> allPaths = g.allPossiblePaths(start, finish, edgeBound, capBound);
+
+    for(auto& pair: allPaths){
+        for(auto& path: pair.second){
+            std::cout << "\nPath "<<++count<<": (";
+            for(int i=0; i<path.size(); i++){
+                std::cout << path[i];
+                if(i!=path.size()-1){std::cout<<", ";}
+            }
+            std::cout << ")\nCapacity: "<< pair.first<<" Transhipments: "<< path.size()-2<<"\n";
         }
-        else if(ratio == curBestRatio){
-            paretOpt.push_back(l);
-        }
+
     }
 
-    for(int k=0; k<paretOpt.size(); k++){
-        std::cout << "\nPath "<<k+1<<": (";
-        for (int i = 0; i < paretOpt[k].size(); i++) {
-            std::cout << paretOpt[k][i];
-            if (i != paretOpt[k].size() - 1) { std::cout << ","; }
+    /*for(auto& path: allPaths){
+        std::cout << "\nPath "<<++count<<": (";
+        for(int i=0; i<path.size(); i++){
+            std::cout << path[i];
+            if(i!=path.size()-1){std::cout<<", ";}
         }
-        std::cout << ")\nCapacity: "<<g.getPathCap(paretOpt[k])<<" Transhipments: "<<paretOpt[k].size()-2<<"\n";
-    }
+        std::cout << ")\nCapacity: "<< g.getPathCap(path)<<" Transhipments: "<< path.size()-2<<"\n";
+    }*/
+
+    return;
 
     //adicionar condicional, caso so haja um path (dataset pequeno) mandar o maximize_cap e minimize edges?
 }

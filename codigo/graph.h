@@ -55,11 +55,13 @@ public:
 
     void dfs2(int v, list<int> &order);
 
-    /** @BRIEF Determina o caminho com menos edges desde node v ao node b.**/
+    int getN();
+
+    /** @BRIEF Determina o caminho com menos edges desde node v ao node b. Retorna o respetivo caminho e a capacidade do mesmo.**/
     pair<int, vector<Graph::Edge>> bfs1(int v, int b);
 
     /** @BRIEF Determina todos os caminhos possíveis desde node v ao node b.**/
-    void allPossiblePaths(int start, int end, vector<int>& curPath, vector<vector<int>>& allPaths, bool& empty);
+    vector<pair<int, vector<vector<int>>>> allPossiblePaths(int start, int end, int edgeBound, int capBound);
 
     /** @BRIEF Determina a capacidade de um caminho.**/
     int getPathCap(vector<int>& path);

@@ -6,7 +6,7 @@
 
 Graph Cenario2::cenario2_1(Graph g, int start, int finish, int groupDimension) {
 
-    std::cout<<"\n---------------------CENARIO 2 ALINEA 1---------------------\n";
+    std::cout<<"\n---------------------SCENARIO 2 SUB-PROBLEM 1---------------------\n";
 
     vector<pair<vector<int>,int>> paths;
     Graph residual_network = g;
@@ -33,7 +33,7 @@ Graph Cenario2::cenario2_1(Graph g, int start, int finish, int groupDimension) {
 
 void Cenario2::cenario2_2(Graph g, int start, int finish, int groupDimension, int value) {
 
-    std::cout<<"\n---------------------CENARIO 2 ALINEA 2---------------------\n";
+    std::cout<<"\n---------------------SCENARIO 2 SUB-PROBLEM 2---------------------\n";
 
     vector<pair<vector<int>,int>> paths;
     Graph residual_network = g;
@@ -67,7 +67,7 @@ void Cenario2::cenario2_2(Graph g, int start, int finish, int groupDimension, in
 void Cenario2::cenario2_3(Graph g, int start, int finish) {
     /*constroi o caminho do 0, nao usa a residual network de outro*/
 
-    std::cout<<"\n---------------------CENARIO 2 ALINEA 3---------------------\n";
+    std::cout<<"\n---------------------SCENARIO 2 SUB-PROBLEM 3---------------------\n";
 
     vector<pair<vector<int>,int>> paths;
     Graph residual_network = g;

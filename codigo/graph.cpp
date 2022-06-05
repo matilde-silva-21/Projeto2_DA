@@ -17,53 +17,9 @@ void Graph::addEdge(int src, int dest, int capacity, int duration) {
 
 pair<vector<int>,int> Graph::dijkstra_minimize_edges(int start, int finish) {
 
-    float distance[n+1];
-    MinHeap<int, float> heap(n,0);
-    int predecessor[n+1];
-    vector<int> course;
+    pair<vector<int>,int> mike;
+    return mike;
 
-    for(int i=1;i<=nodes.size(); i++){
-        distance[i] = UINT32_MAX;
-        nodes[i].visited = false;
-    }
-
-    heap.insert(start, 0.0);
-
-    while(heap.getSize()!=0){
-        pair<int,float> p = heap.removeMin();
-        int min = p.first, finn = UINT16_MAX;
-        nodes[min].visited = true;
-        if(min == finish) {
-            int one = finish, two;
-
-            course.push_back(finish);
-
-            while(one!=start){
-                two = predecessor[one];
-                course.emplace(course.begin(),two);
-                int cap=UINT16_MAX;
-                if(edgeExists(two,one)){
-                    cap = getEdge(two, one)->capacity;
-                }
-                one = two;
-                if(cap != -1 && cap < finn) finn = cap;
-            }
-            return make_pair(course, finn);
-        }
-        for(auto& e: nodes[min].adj){
-            if(nodes[e.dest].visited) break;
-
-            else{
-                int destine = e.dest;
-                float weight = e.capacity + p.second;
-                predecessor[destine]=min;
-                if(!heap.hasKey(destine)) heap.insert(destine,weight);
-                else heap.decreaseKey(destine,weight);
-            }
-        }
-
-    }
-    return make_pair(course, -1);
 }
 
 
@@ -237,7 +193,6 @@ std::pair<int, vector<Graph::Edge>> Graph::bfs1(int v, int b) {
     return make_pair(-1, final);
 }
 
-
 Graph::Edge* Graph::getEdge(int a, int b) {
     for(auto& i: nodes[a].adj){
         if(i.dest==b) return &i;
@@ -317,24 +272,84 @@ bool Graph::Edge::operator==(Graph::Edge &e1) const {
     e1.duration == duration);
 }
 
-void Graph::allPossiblePaths(int start, int end, vector<int>& curPath, vector<vector<int>>& allPaths, bool& empty) {
+vector<pair<int, vector<vector<int>>>>/*vector<vector<int>>*/ Graph::allPossiblePaths(int start, int end, int edgeBound, int capBound) {
 
-    for(auto i: nodes[start].adj){
+
+    vector<vector<int>> roy;
+
+    vector<pair<int, vector<vector<int>>>> finalBoss;
+
+    for(int i=0; i<edgeBound+1; i++){
+        vector<vector<int>> steve;
+        finalBoss.emplace_back(0, steve);
+    }
+
+
+    for (auto& edge: nodes[start].adj) {
+        vector<int> jane;
+        jane.push_back(start);
+        jane.push_back(edge.dest);
+        roy.push_back(jane);
+    }
+
+    while(!roy.empty()){
+        vector<int> hector = roy.front();
+        roy.erase(roy.begin());
+        for(auto& edge: nodes[hector.back()].adj){
+            vector<int> jane = hector;
+            jane.push_back(edge.dest);
+            int curPathCap = getPathCap(jane);
+            if(curPathCap < capBound || jane.size() > edgeBound || curPathCap < finalBoss[jane.size()-1].first){
+                continue;
+            }
+
+            else if(edge.dest == end){
+                if(curPathCap > finalBoss[jane.size()-2].first && curPathCap > finalBoss[jane.size()-1].first){
+                    finalBoss[jane.size()-2].first = curPathCap;
+                    finalBoss[jane.size()-2].second.clear();
+                    finalBoss[jane.size()-2].second.push_back(jane);
+                }
+                else if(curPathCap == finalBoss[jane.size()-2].first){
+                    finalBoss[jane.size()-2].second.push_back(jane);
+                }
+
+            }
+
+            else{
+                roy.push_back(jane);
+            }
+        }
+    }
+
+    return finalBoss;
+
+    /*for(auto i: nodes[start].adj){
         curPath.push_back(i.src);
-        if(i.dest == end){
+        int curPathCap = getPathCap(curPath);
+        if(i.dest == end && (curPath.size()+1) <= edgeBound){
             curPath.push_back(i.dest);
-            allPaths.push_back(curPath);
+
+            if(allPaths[curPath.size()-1].first < curPathCap){
+                allPaths[curPath.size()-2].first = curPathCap;
+                allPaths[curPath.size()-2].second.clear();
+                allPaths[curPath.size()-2].second.push_back(curPath);
+            }
+
+            else if(allPaths[curPath.size()-2].first == curPathCap){
+                allPaths[curPath.size()-2].second.push_back(curPath);
+            }
             curPath.pop_back();
         }
-        else if(nodes[i.dest].adj.empty()){
+
+        else if(nodes[i.dest].adj.empty() || curPath.size() > edgeBound || allPaths[curPath.size()-2].first == curPathCap){
             curPath.pop_back();
             continue;
         }
         else{
-            allPossiblePaths(i.dest,end,curPath,allPaths, empty);
+            allPossiblePaths(i.dest,end,curPath,allPaths, edgeBound);
         }
         curPath.pop_back();
-    }
+    }*/
 
 }
 
@@ -419,7 +434,6 @@ int Graph::edmonds_karp_2(int start, int finish, int flowObjective, Graph& resid
 
 }
 
-
 pair<vector<int>,int> Graph::dijkstra_maximize_flow(int start, int finish){
     int pai[n+1], flow[n+1];
     MaxHeap<int, int> q(n+1, -1);
@@ -497,6 +511,10 @@ Graph Graph::extractPath(int start, int finish, int flowObjective, vector<pair<v
 
     return answer;
 
+}
+
+int Graph::getN() {
+    return n;
 }
 
 
