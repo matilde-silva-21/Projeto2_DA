@@ -124,7 +124,7 @@ void menu(){
             Cenario2::cenario2_4(g,start,end);
         }
         else if(sub_problem==5){
-            //chamar cenario 2_5 aqui
+            Cenario2::cenario2_5(g);
         }
     }
 

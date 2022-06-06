@@ -103,3 +103,16 @@ void Cenario2::cenario2_4(Graph g, int start, int finish) {
     }
     std::cout<<")\nMinimum Time required for the group to reunite: "<<k.second<<" Transhipments: "<<k.first.size()-2<< "\n\n";
 }
+
+void Cenario2::cenario2_5(Graph g) {
+    std::cout<<"\n---------------------SCENARIO 2 SUB-PROBLEM 5---------------------\n\n";
+    pair<vector<int>,int> k = g.total_float();
+
+    std::cout<<"Locals with max time waiting: (";
+
+    for(int i=0; i<k.first.size(); i++){
+        std::cout << k.first[i];
+        if(i!=k.first.size()-1){std::cout<<",";}
+    }
+    std::cout<<")\nMaximum time that a group wait: "<<k.second<< "\n\n";
+}

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo
+# Install script for directory: F:/CAL/bla/Projeto2_DA/codigo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/msys64/mingw64/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "F:/Programas/CLion 2022.1/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/clfma/Desktop/Faculdade/Y2S2/DA/Projeto2/codigo/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "F:/CAL/bla/Projeto2_DA/codigo/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
