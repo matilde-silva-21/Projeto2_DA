@@ -473,8 +473,7 @@ Graph Graph::extractPath(int start, int finish, int flowObjective, vector<pair<v
 
 pair<vector<int>,int> Graph::earliest_start(int start, int finish) {
 
-    int last = finish, cur = 0;
-    int v = 1, final;
+    int last = finish, v = start;
     vector<int> path;
 
     int predecessor[n + 1], ES[n + 1], GrauE[n + 1], durMin = -1;
