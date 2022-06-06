@@ -1,0 +1,16 @@
+digraph "Graph::bfs1"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Graph::bfs1",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Graph::edmonds_karp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_graph.html#ab68891652ad50c3552539a44611ae0d8",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Graph::edmonds_karp_2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_graph.html#ae280077a511f2c82aa12fc19c765ed09",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Graph::allPossiblePaths",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_graph.html#a3674e777846e86dcb0706e34bff03210",tooltip=" "];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Graph::extractPath",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_graph.html#a7aeb68a94ab9cfe1302cb160a7f73e27",tooltip=" "];
+}
