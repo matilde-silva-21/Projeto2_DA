@@ -90,6 +90,7 @@ public:
     /** @BRIEF Determina o caminho que maximiza o fluxo. Retorna um vector que corresponde aos nodes que pertencem ao caminho e um int, o fluxo desse mesmo caminho.**/
     pair<vector<int>,int> dijkstra_maximize_flow(int start, int finish);
 
+    /** @BRIEF Determina a duração mínima para o grupo se reunir no destino (finish) e data de início mais próxima para cada aresta. Retorna um vector que corresponde aos nodes que compõem o caminho percorrido e um int que representa a duração mínima para o grupo se reunir no destino (finish).**/
     pair<vector<int>,int> earliest_start(int start, int finish);
 
 };
