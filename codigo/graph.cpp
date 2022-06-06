@@ -525,6 +525,34 @@ int Graph::getN() {
     return n;
 }
 
+pair<vector<int>, int> Graph::total_float() {
+    vector<int> localsMax;
+    int mFloat;
+
+    MaxHeap<int, int> maxFloat(n+1, -1);
+    for(int i = 1; i<n+1; i++){
+        for(auto &j: nodes[i].adj){
+            if(nodes[i].durMax + j.duration > nodes[j.dest].durMax){
+                nodes[j.dest].durMax = nodes[i].durMax + j.duration;
+            }
+            if(nodes[i].durMax + j.duration < nodes[j.dest].durMin){
+                nodes[j.dest].durMin = nodes[i].durMax + j.duration;
+            }
+        }
+    }
+    for(int k=1; k<n+1;k++){
+        int totalFloat = nodes[k].durMax - nodes[k].durMin;
+        maxFloat.insert(k, totalFloat );
+    }
+    pair<int, int> highestFloat = maxFloat.removeMax();
+    mFloat = highestFloat.second;
+    while(highestFloat.second == mFloat){
+        localsMax.push_back(highestFloat.first);
+        highestFloat = maxFloat.removeMax();
+    }
+
+    return make_pair(localsMax, mFloat);
+}
 
 
 

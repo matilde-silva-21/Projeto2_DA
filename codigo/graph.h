@@ -32,6 +32,8 @@ class Graph {
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited;  // As the node been visited on a search
         vector<int> reachable_nodes;
+        int durMin = UINT16_MAX;
+        int durMax = -1;
     };
 
     vector<Node> nodes; // The list of nodes being represented
@@ -92,6 +94,9 @@ public:
 
     /** @BRIEF Determina a duração mínima para o grupo se reunir no destino (finish) e data de início mais próxima para cada aresta. Retorna um vector que corresponde aos nodes que compõem o caminho percorrido e um int que representa a duração mínima para o grupo se reunir no destino (finish).**/
     pair<vector<int>,int> earliest_start(int start, int finish);
+
+    /** @BRIEF Determina o valor da folga total(Earliest Start - Lastest Start) dos nós. Retorna um vetor com os nodes correspondentes com este tempo, e um int correspondendo ao valor do tempo esperado**/
+    pair<vector<int>,int> total_float();
 
 };
 

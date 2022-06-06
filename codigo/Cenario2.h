@@ -16,6 +16,7 @@ public:
     static void cenario2_2(Graph g,int start, int finish, int groupDimension, int value);
     static void cenario2_3(Graph g, int start, int finish);
     static void cenario2_4(Graph g, int start, int finish);
+    static void cenario2_5(Graph g);
 };
 
 
